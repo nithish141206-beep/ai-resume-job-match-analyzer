@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Resume &amp; Job Match Analyzer</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧬</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ NAVIGATION ============ -->
+<header class="navbar" id="navbar">
+  <div class="nav-inner">
+    <button class="nav-brand" data-nav="home" aria-label="Go to home">
+      <span class="brand-mark" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5z" stroke="url(#g1)" stroke-width="1.6" stroke-linejoin="round"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke="url(#g1)" stroke-width="1.6" stroke-linejoin="round"/><defs><linearGradient id="g1" x1="2" y1="2" x2="22" y2="22"><stop stop-color="#5B8CFF"/><stop offset="1" stop-color="#9B6CFF"/></linearGradient></defs></svg>
+      </span>
+      <span class="brand-text">AI Resume Matcher</span>
+    </button>
+
+    <nav class="nav-links" id="navLinks">
+      <button class="nav-link active" data-nav="home">Home</button>
+      <button class="nav-link" data-nav="workspace">Analyze</button>
+      <button class="nav-link" data-nav="results">Results</button>
+      <button class="nav-link" data-nav="recommendations">Recommendations</button>
+    </nav>
+
+    <div class="nav-right">
+      <span class="demo-pill" id="engineStatus"><i class="pulse-dot" aria-hidden="true"></i>Checking engine…</span>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-menu" id="mobileMenu">
+    <button class="nav-link" data-nav="home">Home</button>
+    <button class="nav-link" data-nav="workspace">Analyze</button>
+    <button class="nav-link" data-nav="results">Results</button>
+    <button class="nav-link" data-nav="recommendations">Recommendations</button>
+  </nav>
+</header>
+
+<main id="app">
+
+  <!-- ============ PAGE 1 — LANDING ============ -->
+  <section class="view active" id="view-home" data-view="home">
+    <div class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow-badge">
+          <i class="pulse-dot" aria-hidden="true"></i>Live AI Analysis
+        </span>
+        <h1 class="hero-title">AI Resume &amp; Job Match Analyzer</h1>
+        <p class="hero-subtitle">AI-Powered Resume Analysis and Intelligent Job Matching</p>
+        <p class="hero-desc">Analyze resumes, understand job requirements, identify skill gaps, and generate actionable career recommendations using NLP, semantic similarity and generative AI.</p>
+
+        <div class="hero-actions">
+          <button class="btn btn-primary btn-lg" id="startAnalysisBtn">
+            Start Analysis
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+
+        <div class="tech-badges">
+          <span class="tech-badge">NLP</span>
+          <span class="tech-badge">Semantic Similarity</span>
+          <span class="tech-badge">Machine Learning</span>
+          <span class="tech-badge">Generative AI</span>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <div class="flow-card glass">
+          <div class="flow-row">
+            <div class="flow-node">
+              <div class="flow-icon flow-icon-a">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="currentColor" stroke-width="1.7"/><path d="M14 2v6h6M9 13h6M9 17h6M9 9h1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+              </div>
+              <span>Resume</span>
+            </div>
+            <svg class="flow-arrow" width="28" height="16" viewBox="0 0 28 16" fill="none"><path d="M1 8h24M19 2l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="flow-node">
+              <div class="flow-icon flow-icon-b">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.7"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+              </div>
+              <span>AI / NLP</span>
+            </div>
+            <svg class="flow-arrow" width="28" height="16" viewBox="0 0 28 16" fill="none"><path d="M1 8h24M19 2l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="flow-node">
+              <div class="flow-icon flow-icon-c">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+              </div>
+              <span>Matching</span>
+            </div>
+            <svg class="flow-arrow" width="28" height="16" viewBox="0 0 28 16" fill="none"><path d="M1 8h24M19 2l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="flow-node">
+              <div class="flow-icon flow-icon-d">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M20 7h-9m0 0 3-3m-3 3 3 3M4 17h9m0 0-3 3m3-3-3-3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="4" width="3" height="3" rx=".5" stroke="currentColor" stroke-width="1.4"/><rect x="18" y="17" width="3" height="3" rx=".5" stroke="currentColor" stroke-width="1.4"/></svg>
+              </div>
+              <span>Job</span>
+            </div>
+          </div>
+          <div class="flow-score-preview">
+            <div class="flow-icon icon-gradient" style="width:56px;height:56px;border-radius:16px;flex-shrink:0">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2v3M12 19v3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1l2.1-2.1M17 7l2.1-2.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.8"/></svg>
+            </div>
+            <div class="flow-score-text">
+              <span class="metric-caption">Real output, not a preset</span>
+              <p>The match score, matching skills and recommendations are generated from the resume and job description you provide — nothing is preloaded.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="how-it-works">
+      <h2 class="section-heading">How the pipeline works</h2>
+      <ol class="pipeline-strip">
+        <li><span class="pl-num">01</span>Text Extraction</li>
+        <li><span class="pl-num">02</span>Preprocessing</li>
+        <li><span class="pl-num">03</span>Skill Extraction</li>
+        <li><span class="pl-num">04</span>Embeddings</li>
+        <li><span class="pl-num">05</span>Similarity</li>
+        <li><span class="pl-num">06</span>AI Matching</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 2 — ANALYSIS WORKSPACE ============ -->
+  <section class="view" id="view-workspace" data-view="workspace">
+    <div class="view-header">
+      <h2 class="section-heading">Analysis Workspace</h2>
+      <p class="section-subheading">Provide a resume and a target job description to run the matching engine.</p>
+    </div>
+
+    <div class="workspace-grid">
+      <!-- RESUME CARD -->
+      <div class="card glass upload-card">
+        <div class="card-head">
+          <div class="card-icon icon-blue">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="currentColor" stroke-width="1.7"/><path d="M14 2v6h6" stroke="currentColor" stroke-width="1.7"/></svg>
+          </div>
+          <div>
+            <h3>Upload Resume</h3>
+            <p class="card-sub">Supports PDF · DOCX · Text</p>
+          </div>
+        </div>
+
+        <label class="dropzone" id="dropzone" for="resumeInput" tabindex="0">
+          <input type="file" id="resumeInput" accept=".pdf,.doc,.docx,.txt" hidden>
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none"><path d="M12 16V4M12 4l-4 4M12 4l4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          <p class="dz-title">Drag &amp; Drop your resume here</p>
+          <span class="btn btn-outline btn-sm" id="browseBtn">Browse File</span>
+        </label>
+
+        <div class="file-status" id="fileStatus" hidden>
+          <div class="file-status-row">
+            <div class="file-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="currentColor" stroke-width="1.7"/><path d="M14 2v6h6" stroke="currentColor" stroke-width="1.7"/></svg>
+            </div>
+            <div class="file-meta">
+              <strong id="fileName">—</strong>
+              <span id="fileDetails">—</span>
+            </div>
+            <span class="check-badge" title="Upload successful">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+        </div>
+
+        <p class="field-error" id="resumeError" hidden>Please upload your resume first.</p>
+      </div>
+
+      <!-- JOB DESCRIPTION CARD -->
+      <div class="card glass upload-card">
+        <div class="card-head">
+          <div class="card-icon icon-purple">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 7h-9m0 0 3-3m-3 3 3 3M4 17h9m0 0-3 3m3-3-3-3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="4" width="3" height="3" rx=".5" stroke="currentColor" stroke-width="1.4"/><rect x="18" y="17" width="3" height="3" rx=".5" stroke="currentColor" stroke-width="1.4"/></svg>
+          </div>
+          <div>
+            <h3>Job Description</h3>
+            <p class="card-sub">Paste the text or upload a file</p>
+          </div>
+        </div>
+
+        <textarea id="jobTextarea" class="job-textarea" placeholder="Paste the job description here..." rows="7"></textarea>
+
+        <div class="job-actions">
+          <label class="btn btn-outline btn-sm" for="jobFileInput" id="jobFileLabel">
+            Upload File
+            <input type="file" id="jobFileInput" accept=".txt,.pdf,.doc,.docx" hidden>
+          </label>
+          <button class="btn btn-outline btn-sm" id="clearJobFileBtn" hidden>Clear File</button>
+        </div>
+
+        <div class="file-status" id="jobFileStatus" hidden>
+          <div class="file-status-row">
+            <div class="file-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="currentColor" stroke-width="1.7"/><path d="M14 2v6h6" stroke="currentColor" stroke-width="1.7"/></svg>
+            </div>
+            <div class="file-meta">
+              <strong id="jobFileName">—</strong>
+              <span id="jobFileDetails">—</span>
+            </div>
+            <span class="check-badge" title="Upload successful">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+        </div>
+
+        <p class="field-error" id="jobError" hidden>Please provide a job description.</p>
+      </div>
+    </div>
+
+    <div class="analyze-bar">
+      <div class="analyze-bar-status" id="analyzeStatus">Add a resume and a job description to continue.</div>
+      <button class="btn btn-primary btn-xl" id="analyzeBtn" disabled>
+        Analyze Match
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 3 — AI PROCESSING ============ -->
+  <section class="view" id="view-processing" data-view="processing">
+    <div class="processing-wrap">
+      <div class="processing-orb" aria-hidden="true">
+        <svg viewBox="0 0 120 120" class="orb-ring">
+          <circle cx="60" cy="60" r="50"/>
+        </svg>
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" class="orb-icon"><path d="M12 2v3M12 19v3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1l2.1-2.1M17 7l2.1-2.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.8"/></svg>
+      </div>
+
+      <h2 class="processing-status" id="processingStatus">Extracting resume text…</h2>
+      <p class="processing-sub" id="processingSub">Your resume and job description are being sent to the analysis backend</p>
+
+      <ol class="pipeline-list" id="pipelineList">
+        <li class="pipeline-step" data-step="1"><span class="ps-num">01</span><span class="ps-label">Resume Extraction</span><span class="ps-state"></span></li>
+        <li class="pipeline-step" data-step="2"><span class="ps-num">02</span><span class="ps-label">Job Analysis</span><span class="ps-state"></span></li>
+        <li class="pipeline-step" data-step="3"><span class="ps-num">03</span><span class="ps-label">Skill Extraction</span><span class="ps-state"></span></li>
+        <li class="pipeline-step" data-step="4"><span class="ps-num">04</span><span class="ps-label">Embeddings</span><span class="ps-state"></span></li>
+        <li class="pipeline-step" data-step="5"><span class="ps-num">05</span><span class="ps-label">Similarity</span><span class="ps-state"></span></li>
+        <li class="pipeline-step" data-step="6"><span class="ps-num">06</span><span class="ps-label">Gap Analysis</span><span class="ps-state"></span></li>
+        <li class="pipeline-step" data-step="7"><span class="ps-num">07</span><span class="ps-label">Recommendations</span><span class="ps-state"></span></li>
+      </ol>
+
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 4 — RESULTS DASHBOARD ============ -->
+  <section class="view" id="view-results" data-view="results">
+    <div class="results-top">
+      <div>
+        <span class="eyebrow-badge small">AI Analysis Result</span>
+        <div class="results-meta">
+          <div class="meta-item"><span>Candidate</span><strong id="metaCandidate">—</strong></div>
+          <div class="meta-divider" aria-hidden="true"></div>
+          <div class="meta-item"><span>Target Role</span><strong id="metaRole">—</strong></div>
+        </div>
+      </div>
+      <button class="btn btn-outline btn-sm" id="resetBtn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M3 12a9 9 0 1 0 3-6.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M3 4v5h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Reset Analysis
+      </button>
+    </div>
+
+    <div class="results-grid">
+      <!-- SCORE CARD -->
+      <div class="card glass score-card">
+        <div class="score-ring" id="scoreRing" style="--pct:0">
+          <svg viewBox="0 0 200 200">
+            <circle class="ring-track" cx="100" cy="100" r="86"></circle>
+            <circle class="ring-fill" cx="100" cy="100" r="86" id="ringFill"></circle>
+          </svg>
+          <div class="score-center">
+            <span class="score-num" id="scoreNum">0%</span>
+            <span class="score-fit" id="scoreFit">Calculating</span>
+          </div>
+        </div>
+        <div class="score-legend">
+          <span class="legend-dot legend-match"></span> Matching
+          <span class="legend-dot legend-gap"></span> Gap
+        </div>
+      </div>
+
+      <!-- MATCHING SKILLS -->
+      <div class="card glass">
+        <div class="card-head compact">
+          <div class="card-icon icon-green"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>Matching Skills</h3>
+        </div>
+        <div class="skill-chip-group" id="matchingSkills"></div>
+        <p class="card-footnote" id="matchingCount">0 Matching Skills</p>
+      </div>
+
+      <!-- MISSING SKILLS -->
+      <div class="card glass">
+        <div class="card-head compact">
+          <div class="card-icon icon-amber"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></div>
+          <h3>Missing Skills</h3>
+        </div>
+        <div class="skill-chip-group" id="missingSkills"></div>
+        <p class="card-footnote" id="missingCount">0 Role Gaps</p>
+      </div>
+    </div>
+
+    <!-- AI INSIGHT -->
+    <div class="card glass insight-card">
+      <div class="insight-head">
+        <div class="card-icon icon-gradient">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2v3M12 19v3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1l2.1-2.1M17 7l2.1-2.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.8"/></svg>
+        </div>
+        <h3>AI Insight</h3>
+      </div>
+      <p class="insight-text" id="insightText">Your personalized AI insight will appear here once an analysis has run.</p>
+      <span class="ai-generated-tag">AI Generated Recommendation</span>
+    </div>
+
+    <!-- SUMMARY METRICS -->
+    <div class="summary-grid">
+      <div class="metric-card">
+        <span class="metric-value" id="sumResumeSkills">—</span>
+        <span class="metric-caption">Resume Skills</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-value" id="sumGaps">—</span>
+        <span class="metric-caption">Role Gaps</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-value" id="sumScore">—</span>
+        <span class="metric-caption">Match Score</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-value" id="sumReco">—</span>
+        <span class="metric-caption">Semantic Similarity</span>
+      </div>
+    </div>
+
+    <!-- PAGE 5 — SKILL ANALYSIS -->
+    <div class="view-header spaced">
+      <h2 class="section-heading">Skill Analysis</h2>
+      <p class="section-subheading">The system identifies both direct and meaning-level skill relationships instead of relying only on exact keyword matching.</p>
+    </div>
+
+    <div class="skill-compare-grid">
+      <div class="card glass">
+        <h3 class="compare-title">Candidate Skills</h3>
+        <div class="compare-list" id="candidateSkillBars"></div>
+      </div>
+      <div class="card glass">
+        <h3 class="compare-title">Job Requirements</h3>
+        <div class="compare-list" id="jobSkillBars"></div>
+      </div>
+    </div>
+
+    <div class="matched-missing-grid">
+      <div class="card glass">
+        <h4 class="mm-title mm-matched">Matched</h4>
+        <ul class="mm-list" id="mmMatched"></ul>
+      </div>
+      <div class="card glass">
+        <h4 class="mm-title mm-missing">Missing</h4>
+        <ul class="mm-list" id="mmMissing"></ul>
+      </div>
+    </div>
+
+    <div class="results-cta">
+      <button class="btn btn-primary btn-lg" data-nav="recommendations">
+        View Recommendations
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 6 — AI RECOMMENDATIONS ============ -->
+  <section class="view" id="view-recommendations" data-view="recommendations">
+    <div class="view-header">
+      <h2 class="section-heading">Personalized AI Recommendations</h2>
+      <p class="section-subheading">Learning paths generated from the detected skill gaps for this role.</p>
+    </div>
+
+    <div class="reco-grid" id="recoGrid"></div>
+
+    <div class="reco-path">
+      <h3 class="reco-path-title">Recommended Improvement Path</h3>
+      <div class="path-strip">
+        <span class="path-node">Resume Analysis</span>
+        <svg class="path-arrow" width="26" height="14" viewBox="0 0 26 14" fill="none"><path d="M1 7h22M17 1l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="path-node">Skill Gap</span>
+        <svg class="path-arrow" width="26" height="14" viewBox="0 0 26 14" fill="none"><path d="M1 7h22M17 1l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="path-node">Learning Recommendation</span>
+        <svg class="path-arrow" width="26" height="14" viewBox="0 0 26 14" fill="none"><path d="M1 7h22M17 1l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="path-node path-node-final">Better Job Match</span>
+      </div>
+    </div>
+
+    <div class="results-cta">
+      <button class="btn btn-outline btn-lg" id="startOverBtn">Start a New Analysis</button>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>AI Resume &amp; Job Match Analyzer — Engineering Project · Analysis is performed by a Python/Flask backend using NLP and sentence-embedding semantic similarity.</p>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
